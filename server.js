@@ -21,7 +21,7 @@ var Storage = {
     var item = items.find(findItem);
     return item;
     },
-    update:  function(updatedItem) { 
+    update:  function(updatedItem) {
     var items = this.items;
     function findItem(item) {
         if(item.id == updatedItem.id) {
@@ -68,7 +68,7 @@ app.post('/items', jsonParser, function(request, response) {
 app.delete('/items/:id', jsonParser, function(request, response) {
     var id = request.params.id;
     console.log("server-side id", id);
-    if (!id) { 
+    if (!id) {
         return response.sendStatus(400);
     }
     var item = storage.remove(id);
@@ -83,5 +83,8 @@ app.put('/items/:id', jsonParser, function(request, response) {
     var updated = storage.update(updated);
     response.status(200).json(updated);
 });
+
+exports.app = app;
+exports.storage = storage;
 
 app.listen(process.env.PORT || 8080, process.env.IP);
